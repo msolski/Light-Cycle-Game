@@ -43,15 +43,15 @@ void Char::changeDir(direction key){
 }
 
 void Char::moveChar(){
+	/*if (charDie()){
+		printf("dead\n");
+	}*/
+
 	switch(dir){
 	case up: pos.y -= speed; break;
 	case down: pos.y += speed; break;
 	case left: pos.x -= speed; break;
 	case right: pos.x += speed; break;
-	}
-
-	if (charDie()){
-		printf("dead\n");
 	}
 }
 
@@ -65,6 +65,7 @@ void Char::changeSpeed() {
 // The cycle itself is the last "point" in the line loop
 // TODO: Fill in corners
 void Char::drawTrail(){
+	bool death = false;
 	glLineWidth(5.0);
 	glColor3f(colour[0], colour[1], colour[2]);
 
@@ -72,6 +73,20 @@ void Char::drawTrail(){
 
 		for(int i=0; i<numOfTrail; i++){
 			glVertex2f(trailList[i].x, trailList[i].y);
+
+			// If the player is in between two points, he dies
+			if(i>0){
+				// If the line is vertical
+				if(trailList[i].x == trailList[i-1].x){
+
+				}
+				// If the line is horizontal
+				else if(trailList[i].y == trailList[i-1].y){
+
+				}
+
+			}
+
 		}
 		glVertex2f(pos.x, pos.y);
 
@@ -86,10 +101,10 @@ bool Char::charDie(){
 	ahead.y = pos.y;
 
 	switch(dir){
-	case up: ahead.y -= 5; break;
-	case down: ahead.y += 5; break;
-	case left: ahead.y -= 5; break;
-	case right: ahead.y += 5; break;
+	case up: ahead.y -= 10; break;
+	case down: ahead.y += 10; break;
+	case left: ahead.x -= 10; break;
+	case right: ahead.x += 10; break;
 	}
 
 	unsigned char pixel[3];

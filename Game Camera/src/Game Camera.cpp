@@ -24,7 +24,6 @@ void drawList() {
 	player.drawTrail();
 	player.drawChar();
 
-
 	// Not player
 	glFlush();
 }
